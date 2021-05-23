@@ -1,43 +1,49 @@
 import classes from "./AvailableMeals.module.scss"
 import Card from "../UI/Card";
 import Meal from "./MealItem/Meal";
-
-const DUMMY_MEALS = [
-    {
-        id: 'm1',
-        name: 'Sushi',
-        description: 'Finest fish and veggies',
-        price: 22.99,
-    },
-    {
-        id: 'm2',
-        name: 'Schnitzel',
-        description: 'A german specialty!',
-        price: 16.5,
-    },
-    {
-        id: 'm3',
-        name: 'Barbecue Burger',
-        description: 'American, raw, meaty',
-        price: 12.99,
-    },
-    {
-        id: 'm4',
-        name: 'Green Bowl',
-        description: 'Healthy...and green...',
-        price: 18.99,
-    },
-];
+import {useEffect, useState} from "react";
+import UseHttp from "../../hooks/use-http";
 
 const AvailableMeals = () => {
-    const mealsList = DUMMY_MEALS.map(meal => <Meal id={meal.id} key={meal.id} price={meal.price} description={meal.description}
-                                                    name={meal.name}/>)
+    const [meals, setMeals] = useState([]);
+    const {isLoading, error, sendRequest: fetchMeals} = UseHttp()
+
+    useEffect(() => {
+        const transformMeals = mealsObj => {
+            const loadedMeals = [];
+            for (const mealKey in mealsObj) {
+                loadedMeals.push({
+                    id: mealKey,
+                    description: mealsObj[mealKey].description,
+                    name: mealsObj[mealKey].name,
+                    price: mealsObj[mealKey].price,
+                });
+            }
+            setMeals(loadedMeals);
+        };
+        fetchMeals(
+            {url: "https://react-http-5023f-default-rtdb.firebaseio.com/meals.json"},
+            transformMeals);
+    }, [fetchMeals]);
+
+    const mealsList = meals.map(meal => <Meal id={meal.id} key={meal.id} price={meal.price}
+                                              description={meal.description}
+                                              name={meal.name}/>)
+
+    let content = mealsList;
+
+    if(error){
+        content = "An error occured !"
+    }
+    if(isLoading) {
+        content = 'Loading meals...';
+    }
 
     return (
         <section className={classes.meals}>
             <Card>
                 <ul>
-                    {mealsList}
+                    {content}
                 </ul>
             </Card>
         </section>
