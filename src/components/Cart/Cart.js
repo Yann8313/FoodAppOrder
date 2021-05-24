@@ -4,6 +4,7 @@ import {useContext} from "react";
 import CartContext from "../../store/cart-context";
 import CartItem from "./CartItem";
 
+
 const Cart = props => {
     const cartCtx = useContext(CartContext)
 
@@ -15,7 +16,7 @@ const Cart = props => {
     };
 
     const cartItemAddHandler = item => {
-        cartCtx.addItem({...item,amount:1})
+        cartCtx.addItem({...item, amount: 1})
     };
 
     const cartItems = (
@@ -27,6 +28,7 @@ const Cart = props => {
             ))}
         </ul>
     );
+
     return (
         <Modal onClose={props.onHideCart}>
             {cartItems}
@@ -35,9 +37,11 @@ const Cart = props => {
                 <span>{totalAmount}</span>
             </div>
             <div className={classes.actions}>
-                {hasItems && <button className={classes["button--alt"]} onClick={props.onHideCart}>Close</button>}
+                {hasItems &&
+                <button className={classes["button--alt"]} onClick={props.onHideCart}>Close</button>}
                 <button className={classes.button}>Order</button>
             </div>
+
         </Modal>
     );
 };
