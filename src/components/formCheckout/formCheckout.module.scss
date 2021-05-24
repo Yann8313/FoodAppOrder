@@ -1,0 +1,69 @@
+.form {
+  margin: 1rem 0;
+  height: 100%;
+  overflow: auto;
+}
+
+.formControl {
+  margin-bottom: 0.5rem;
+  label{
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+    display: block;
+  }
+  input {
+    font: inherit;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 20rem;
+    max-width: 100%;
+  }
+  input:focus {
+    outline: none;
+    border-color: #240370;
+    background-color: #e0d4fd;
+  }
+}
+
+.actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin: 0.5rem;
+}
+
+.buttonForm {
+  cursor: pointer;
+  font: inherit;
+  border: none;
+  background-color: #4d1601;
+  color: white;
+  padding: 0.75rem 3rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 25px;
+  font-weight: bold;
+}
+
+button:disabled,
+button:disabled:hover,
+button:disabled:active {
+  background-color: #ccc;
+  color: #292929;
+  border-color: #ccc;
+  cursor: not-allowed;
+}
+
+.errorText {
+  color: #b40e0e;
+}
+
+.invalid label {
+  color: #ca3e51;
+}
+
+.invalid input {
+  border-color: #aa0b20;
+  background-color: #ffeff1;
+}
