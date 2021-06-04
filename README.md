@@ -1,1 +1,1 @@
-Application front-end factice de commande en ligne 
+UI d'app de commande de plats en ligne
